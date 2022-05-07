@@ -1,0 +1,7 @@
+# https://mcdreforged.readthedocs.io/zh_CN/latest/permission.html
+default_level: user
+owner:
+admin:
+helper:
+user:
+guest:

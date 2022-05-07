@@ -1,0 +1,30 @@
+# https://mcdreforged.readthedocs.io/zh_CN/latest/configure.html
+language: en_us
+# DO NOT CHANGE THIS LINE
+working_directory: /data
+# Auto generate by itzg/minecraft-sevrer
+start_command: %start%
+handler: %handler%
+plugin_directories:
+  - plugins
+rcon:
+  enable: false
+  address: 127.0.0.1
+  port: 25575
+  password: password
+check_update: true
+advanced_console: false
+
+# Advanced config
+disable_console_thread: false
+disable_console_color: false
+custom_handlers:
+custom_info_reactors:
+debug:
+  all: false
+  mcdr: false
+  handler: false
+  reactor: false
+  plugin: false
+  permission: false
+  command: false
