@@ -2,7 +2,7 @@
 
 [English](https://github.com/Cattttttttt/mcdr-docker) | **简体中文**
 
-**未经过测试**
+**未经过测试, 注意备份存档**
 
 **如果你在 Windows 11 上使用 Docker Desktop, 请关闭 Docker Desktop 设置中的 'Use the WSL 2 based engine' 以使用 Hyper-V 作为后端, 不然世界生成可能会出问题, [此 issue](https://github.com/itzg/docker-minecraft-server/issues/1102)**
 
@@ -35,15 +35,13 @@ services:
 
 `stdin_open` 与 `tty` 必须为 `true`, 或者去 MCDR 的 config.yml 里把 `disable_console_thread` 改为 `true`
 
-`docker run -i` 没试过, 应该可以
-
 ## 更改 Minecraft 配置
 
 参见 https://github.com/itzg/docker-minecraft-server
 
 ## 挂载目录
 
-存在两个可以挂载的卷, 分别是 `/data` 和 `/mcdr`
+存在两个可以挂载的目录, 分别是 `/data` 和 `/mcdr`
 
 前者为 [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) 提供的 Minecraft 目录, 参见 https://github.com/itzg/docker-minecraft-server#data-directory
 

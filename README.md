@@ -1,8 +1,8 @@
 # MCDReforged docker image
 
-**English** | [简体中文](https://github.com/Cattttttttt/mcdr-docker/docs/README-zh.md)
+**English** | [简体中文](https://github.com/Cattttttttt/mcdr-docker/blob/master/docs/README-zh.md)
 
-**This image is not tested yet**
+**This image is not tested yet, always backup your world**
 
 **If you're using Docker Desktop on Windows 11, disable 'Use the WSL 2 based engine' in Docker Desktop settings to use Hyper-V as backend, or your world might be corrupted. [This issue](https://github.com/itzg/docker-minecraft-server/issues/1102)**
 
