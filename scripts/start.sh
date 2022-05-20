@@ -39,6 +39,12 @@ resolveHandler()
 
 echo "Starting server setup..."
 OUTPUT=$(SETUP_ONLY=true /start)
+
+if [ "$?" -ne 0 ]; then
+  echo "Setup failed, exiting..."
+  exit 1
+fi
+
 START_COMMAND=$(echo $OUTPUT | grep -oE 'SETUP_ONLY: .+' | sed -r 's/^SETUP_ONLY: (.+)$/\1/')
 if [ -z "$START_COMMAND" ]; then
   echo "Command is empty, exiting..."
@@ -59,8 +65,6 @@ mkdir -p /mcdr/config
 mkdir -p /mcdr/logs
 mkdir -p /mcdr/plugins
 
-cat /tmp/mcdr/config.yml
-
 if [ -f "/mcdr/config.yml" ]; then
   echo "Config file 'config.yml' exists"
 else
@@ -75,4 +79,19 @@ else
   mv -n /tmp/mcdr/permission.yml /mcdr/permission.yml
 fi
 
-python3 -m mcdreforged
+if [ -n "$BOOT_FROM_SOURCE" ]; then
+  echo "Boot from source enabled"
+  echo "Fetch source code..."
+  tar -xzkf /tmp/mcdr/source.tar.gz -C /mcdr --strip-components=1
+  echo "Starting setup..."
+  python3 setup.py egg_info
+  if [ "$?" -ne 0 ]; then
+    echo "setup failed, exiting..."
+    exit 1
+  fi
+  echo "Starting main server..."
+  python3 MCDReforged.py
+else
+  echo "Starting main server..."
+  python3 -m mcdreforged
+fi
