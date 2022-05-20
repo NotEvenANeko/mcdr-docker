@@ -2,9 +2,8 @@ ARG IMAGE_TAG=latest
 FROM itzg/minecraft-server:${IMAGE_TAG}
 ARG MCDR_VERSION
 
-RUN apt update && apt upgrade -y
-
-RUN apt install python3 python3-pip curl -y
+RUN apt update && apt upgrade -y && \
+    apt install python3 python3-pip curl -y --fix-missing
 
 # Install production version
 RUN pip install $([ -n "$MCDR_VERSION" ] && echo "mcdreforged==${MCDR_VERSION}" || echo "mcdreforged")
