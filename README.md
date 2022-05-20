@@ -85,15 +85,15 @@ services:
 
 ## Use different version of MCDReforged
 
-Just change the tag of the image.
+Set environment variable `MCDR_VERSION` to valid version number, 2.0 or above is supported.
 
 ```yaml
 version: "3.8"
 services:
   mcdr:
-    image: mcdr-docker:2.3.2 # Use MCDReforged v2.3.2
     environment:
       - EULA=TRUE
+      - MCDR_VERSION=2.3.2 # Use MCDReforged v2.3.2
     ports:
       - 25565:25565
     stdin_open: true
