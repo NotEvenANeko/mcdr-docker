@@ -4,7 +4,9 @@
 
 **未经过测试**
 
-**如果你在 Windows 11 上使用 Docker Desktop, 请关闭 Docker Desktop 设置中的 ‘Use the WSL 2 based engine' 以使用 Hyper-V 作为后端, [此 issue](https://github.com/itzg/docker-minecraft-server/issues/1102)**
+**如果你在 Windows 11 上使用 Docker Desktop, 请关闭 Docker Desktop 设置中的 'Use the WSL 2 based engine' 以使用 Hyper-V 作为后端, 不然世界生成可能会出问题, [此 issue](https://github.com/itzg/docker-minecraft-server/issues/1102)**
+
+**仅支持 MCDReforged 2.x**
 
 Docker image for [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)
 
@@ -99,3 +101,12 @@ services:
     stdin_open: true
     tty: true
 ```
+
+## `TYPE` 与 `handler` 的对应关系
+
+- `FABRIC` 和 `VANILLA`: `vanilla_handler`
+- `FORGE`: `forge_handler`
+- `BUKKIT` 和 `SPIGOT`: 游戏版本高于 1.14 时为 `bukkit14_handler`, 其他为 `bukkit_handler`
+- `PAPER` 和 `MOHIST`: `bukkit_handler`
+- `CATSERVER`: `cat_server_handler`
+- 其他: `vanilla_handler`
