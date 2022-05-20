@@ -1,6 +1,4 @@
 #!/bin/sh
-SERVER_TYPE=${TYPE:-"VANILLA"}
-
 resolveHandler()
 {
   case "$1" in
@@ -51,22 +49,24 @@ if [ -z "$START_COMMAND" ]; then
   exit 1
 fi
 echo "Using start command '$START_COMMAND'"
-sed -i "/start_command:/s/%start%/\"$START_COMMAND\"/" /tmp/mcdr/config.yml
+sed -i "/^start_command:/ s,^start_command:.*$,start_command: \"$START_COMMAND\"," /tmp/mcdr/config.yml
 
-HANDLER=$(resolveHandler $SERVER_TYPE $VERSION)
+HANDLER=$(resolveHandler $TYPE $VERSION)
 if [ -z "$HANDLER" ]; then
   echo "Handler is empty, exiting..."
   exit 1
 fi
 echo "Using handler '$HANDLER'"
-sed -i "/handler:/s/%handler%/\"$HANDLER\"/" /tmp/mcdr/config.yml
+sed -i "/handler:/s/^handler:.*$/handler: \"$HANDLER\"/" /tmp/mcdr/config.yml
 
 mkdir -p /mcdr/config
 mkdir -p /mcdr/logs
 mkdir -p /mcdr/plugins
 
 if [ -f "/mcdr/config.yml" ]; then
-  echo "Config file 'config.yml' exists"
+  echo "Config file 'config.yml' exists, overriding start command and handler..."
+  sed -i "/^start_command:/ s,^start_command:.*$,start_command: \"$START_COMMAND\"," /mcdr/config.yml
+  sed -i "/handler:/s/^handler:.*$/handler: \"$HANDLER\"/" /mcdr/config.yml
 else
   echo "Config file 'config.yml' does not exist, using default config"
   mv -n /tmp/mcdr/config.yml /mcdr/config.yml

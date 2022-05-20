@@ -2,9 +2,10 @@
 language: en_us
 # DO NOT CHANGE THIS LINE
 working_directory: /data
-# Auto generate by itzg/minecraft-sevrer
-start_command: %start%
-handler: %handler%
+# Auto generate by itzg/minecraft-sevrer, will be overrided when server start
+start_command:
+# Auto generate by mcdr-docker, will be overrided when server start
+handler:
 plugin_directories:
   - plugins
 rcon:
