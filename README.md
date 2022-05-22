@@ -2,7 +2,7 @@
 
 **English** | [简体中文](https://github.com/Cattttttttt/mcdr-docker/blob/master/docs/README-zh.md)
 
-**This image is not tested yet, always backup your world**
+**This image is not using automatic test yet, always backup your world**
 
 **If you're using Docker Desktop on Windows 11, disable 'Use the WSL 2 based engine' in Docker Desktop settings to use Hyper-V as backend, or your world might be corrupted. [This issue](https://github.com/itzg/docker-minecraft-server/issues/1102)**
 
@@ -100,6 +100,25 @@ services:
     tty: true
 ```
 
+## Using different UID/GID
+
+Change environment variable `UID` and `GID` to change user, or use `--user 1000:1000` to boot with user 'minecraft'
+
+```yaml
+version: "3.8"
+services:
+  mcdr:
+    image: mcdr:latest
+    environment:
+      - EULA=TRUE
+      - PID=0 # run main server using root
+      - GID=0
+    ports:
+      - 25565:25565
+    stdin_open: true
+    tty: true
+```
+
 ## Mapping `TYPE` to `handler`
 
 - `FABRIC` or `VANILLA`: `vanilla_handler`
@@ -108,3 +127,9 @@ services:
 - `PAPER` or `MOHIST`: `bukkit_handler`
 - `CATSERVER`: `cat_server_handler`
 - other: `vanilla_handler`
+
+## Disadvantages
+
+- No automatic test, manual test is required before release
+- Some environment variable in [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) may not have the same effect.
+- Some implementations is not graceful enough.

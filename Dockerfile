@@ -12,4 +12,6 @@ COPY --chmod=755 scripts/start-mcdr-server.sh /start-mcdr-server.sh
 VOLUME [ "/mcdr" ]
 WORKDIR /mcdr
 
+RUN chown minecraft:minecraft /mcdr
+
 ENTRYPOINT [ "/mcdr-start.sh" ]

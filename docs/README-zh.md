@@ -2,7 +2,7 @@
 
 [English](https://github.com/Cattttttttt/mcdr-docker) | **简体中文**
 
-**未经过测试, 注意备份存档**
+**未经过自动化测试, 注意备份存档**
 
 **如果你在 Windows 11 上使用 Docker Desktop, 请关闭 Docker Desktop 设置中的 'Use the WSL 2 based engine' 以使用 Hyper-V 作为后端, 不然世界生成可能会出问题, [此 issue](https://github.com/itzg/docker-minecraft-server/issues/1102)**
 
@@ -100,6 +100,25 @@ services:
     tty: true
 ```
 
+## 更改启动用户
+
+更改环境变量 `UID` 与 `GID` 来更改用户, 或使用 `--user 1000:1000` 以使用 minecraft 用户运行启动脚本
+
+```yaml
+version: "3.8"
+services:
+  mcdr:
+    image: mcdr:latest
+    environment:
+      - EULA=TRUE
+      - PID=0 # 使用 root 用户来运行主程序
+      - GID=0
+    ports:
+      - 25565:25565
+    stdin_open: true
+    tty: true
+```
+
 ## `TYPE` 与 `handler` 的对应关系
 
 - `FABRIC` 和 `VANILLA`: `vanilla_handler`
@@ -108,3 +127,9 @@ services:
 - `PAPER` 和 `MOHIST`: `bukkit_handler`
 - `CATSERVER`: `cat_server_handler`
 - 其他: `vanilla_handler`
+
+## 可能的缺陷
+
+- 没有加入自动化测试，测试需要手动
+- [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) 的一些环境变量可能不会正常工作
+- 实现可能不优雅
