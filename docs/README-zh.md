@@ -85,15 +85,15 @@ services:
 
 ## 使用不同的 MCDReforged 版本
 
-只需要更改 image 的 tag 就行
+将 `MCDR_VERSION` 环境变量设为合法的版本号即可, 只有 2.0 以及上被支持
 
 ```yaml
 version: "3.8"
 services:
   mcdr:
-    image: mcdr:2.3.2 # 使用 v2.3.2 的 MCDReforged
     environment:
       - EULA=TRUE
+      - MCDR_VERSION=2.3.2 # 使用 v2.3.2 的 MCDReforged
     ports:
       - 25565:25565
     stdin_open: true
