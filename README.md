@@ -12,9 +12,11 @@ Docker image for [MCDReforged](https://github.com/Fallen-Breath/MCDReforged).
 
 Based on [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server).
 
+`$ docker pull notevenaneko/mcdr-docker:latest`
+
 ## Docker run
 
-`$ docker run -it -e EULA=TRUE mcdr-docker:latest`
+`$ docker run -it -e EULA=TRUE notevenaneko/mcdr-docker:latest`
 
 **MUST** use with `-i` and `-t` because MCDReforged will read EOF and exit if stdin is closed, or modify config.yml in the next section.
 
@@ -24,7 +26,7 @@ Based on [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft
 version: "3.8"
 services:
   mcdr:
-    image: mcdr-docker:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
     ports:
@@ -51,7 +53,7 @@ You can attach your volume to `/data` and `/mcdr`.
 version: "3.8"
 services:
   mcdr:
-    image: mcdr-docker:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
     ports:
@@ -65,6 +67,24 @@ services:
     tty: true
 ```
 
+or simply mount two directory
+
+```yaml
+version: "3.8"
+services:
+  mcdr:
+    image: notevenaneko/mcdr-docker:latest
+    environment:
+      - EULA=TRUE
+    ports:
+      - 25565:25565
+    volumes:
+      - /path/to/your/mc:/data
+      - /path/to/your/mcdr:/mcdr
+    stdin_open: true
+    tty: true
+```
+
 ## Boot from source code
 
 Set environment variable `BOOT_FROM_SOURCE` to non-empty string.
@@ -73,7 +93,7 @@ Set environment variable `BOOT_FROM_SOURCE` to non-empty string.
 version: "3.8"
 services:
   mcdr:
-    image: mcdr-docker:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
       - BOOT_FROM_SOURCE=TRUE
@@ -91,6 +111,7 @@ Set environment variable `MCDR_VERSION` to valid version number, 2.0 or above is
 version: "3.8"
 services:
   mcdr:
+    image: notevenaneko/mcdr-docker
     environment:
       - EULA=TRUE
       - MCDR_VERSION=2.3.2 # Use MCDReforged v2.3.2
@@ -108,7 +129,7 @@ Change environment variable `UID` and `GID` to change user, or use `--user 1000:
 version: "3.8"
 services:
   mcdr:
-    image: mcdr:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
       - PID=0 # run main server using root

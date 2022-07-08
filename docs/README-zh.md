@@ -12,9 +12,11 @@ Docker image for [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)
 
 基于[itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server)
 
+`$ docker pull notevenaneko/mcdr-docker:latest`
+
 ## Docker run
 
-`$ docker run -it -e EULA=TRUE mcdr-docker:latest`
+`$ docker run -it -e EULA=TRUE notevenaneko/mcdr-docker:latest`
 
 **必须** 使用参数 `-i` 和 `-t` , 因为如果 stdin 没打开那么 MCDReforged 会读到 EOF 然后就退出了, 也可以参考下一节里修改 config.yml
 
@@ -24,7 +26,7 @@ Docker image for [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)
 version: "3.8"
 services:
   mcdr:
-    image: mcdr:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
     ports:
@@ -51,7 +53,7 @@ services:
 version: "3.8"
 services:
   mcdr:
-    image: mcdr:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
     ports:
@@ -65,6 +67,24 @@ services:
     tty: true
 ```
 
+或者更简单，直接挂载两个目录
+
+```yaml
+version: "3.8"
+services:
+  mcdr:
+    image: notevenaneko/mcdr-docker:latest
+    environment:
+      - EULA=TRUE
+    ports:
+      - 25565:25565
+    volumes:
+      - /path/to/your/mc:/data
+      - /path/to/your/mcdr:/mcdr
+    stdin_open: true
+    tty: true
+```
+
 ## 从源码启动
 
 把环境变量 `BOOT_FROM_SOURCE` 设置为非空字符串即可
@@ -73,7 +93,7 @@ services:
 version: "3.8"
 services:
   mcdr:
-    image: mcdr:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
       - BOOT_FROM_SOURCE=TRUE
@@ -91,6 +111,7 @@ services:
 version: "3.8"
 services:
   mcdr:
+    image: notevenaneko/mcdr-docker
     environment:
       - EULA=TRUE
       - MCDR_VERSION=2.3.2 # 使用 v2.3.2 的 MCDReforged
@@ -108,7 +129,7 @@ services:
 version: "3.8"
 services:
   mcdr:
-    image: mcdr:latest
+    image: notevenaneko/mcdr-docker:latest
     environment:
       - EULA=TRUE
       - PID=0 # 使用 root 用户来运行主程序
